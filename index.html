@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chiaki's Portfolio</title>
+
+  <!-- ===== Google Fonts（ナチュラルで読みやすいフォント） ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- ===== CSSファイル（デザイン全般） ===== -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       ヘッダー（固定ナビゲーション）
+  ============================================================ -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">Chiaki's Portfolio</div>
+
+      <!-- ハンバーガーメニューボタン（モバイル用） -->
+      <button class="hamburger" onclick="toggleMenu()" aria-label="メニュー">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- ナビゲーションリンク -->
+      <nav class="nav" id="nav">
+        <a href="#about" onclick="closeMenu()">About</a>
+        <a href="#works" onclick="closeMenu()">Works</a>
+        <a href="#skills" onclick="closeMenu()">Skills</a>
+        <a href="#contact" onclick="closeMenu()">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       ヒーローセクション
+  ============================================================ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-label">Portfolio</p>
+      <h1 class="hero-title">生活の中での<br>困りごとを解決する</h1>
+      <p class="hero-subtitle">
+        子育て・家計・暮らしの中で感じた「不便」を、<br>
+        自分の手でWebアプリに変えてきました。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Aboutセクション
+  ============================================================ -->
+  <section class="section about" id="about">
+    <div class="container">
+      <p class="section-label">About</p>
+      <h2 class="section-title">暮らしの「困った」を、自分の手で解決する。</h2>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            子育てをしながら働く毎日の中で、「こんなツールがあったらいいのに」と感じる場面がたくさんありました。
+            子どもの習い事の調整、家族の予定管理、日用品のまとめ買い判断——小さなことだけど、積み重なると大きな負担になる「名もなき家事」たち。
+          </p>
+          <p>
+            それなら自分で作ろう——そう思い立ち、プログラミングを学び始めました。
+            作品はすべて、自分や家族が実際に感じた課題から生まれたものです。
+            「とりあえず動くもの」ではなく、日常の中で本当に使い続けられることを大切にしています。
+          </p>
+
+          <!-- 学習歴タイムライン -->
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-label">COMPLETED</span>
+              <p class="timeline-title">SUNABACO プログラミングコース 修了</p>
+            </div>
+            <div class="timeline-item current">
+              <span class="timeline-label">NOW</span>
+              <p class="timeline-title">SUNABACO AI人材育成講座 受講中</p>
+            </div>
+            <div class="timeline-item planned">
+              <span class="timeline-label">NEXT</span>
+              <p class="timeline-title">SUNABACO デザインコース 受講予定</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Worksセクション（作品一覧カード）
+  ============================================================ -->
+  <section class="section works" id="works">
+    <div class="container">
+      <div class="works-header">
+        <div>
+          <p class="section-label">Works</p>
+          <h2 class="section-title">作品一覧</h2>
+        </div>
+
+        <!-- フィルターボタン -->
+        <div class="filter-buttons">
+          <button class="filter-btn active" onclick="filterWorks('all')">すべて</button>
+          <button class="filter-btn" onclick="filterWorks('personal')">個人開発</button>
+          <button class="filter-btn" onclick="filterWorks('course')">講座課題</button>
+        </div>
+      </div>
+
+      <!-- カード一覧（JavaScriptで動的に生成） -->
+      <div class="works-grid" id="worksGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Skillsセクション
+  ============================================================ -->
+  <section class="section skills" id="skills">
+    <div class="container">
+      <p class="section-label">Skills</p>
+      <h2 class="section-title">使用技術</h2>
+      <p class="section-desc">全作品を通じて使用してきた技術スタックです。</p>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <p class="skill-category">LANGUAGE</p>
+          <p class="skill-list">Python / JavaScript (ES6+) / HTML5 / CSS3</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-category">BACKEND</p>
+          <p class="skill-list">Flask / FastAPI / Google Apps Script / Gunicorn</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-category">FRONTEND</p>
+          <p class="skill-list">Vanilla JS / HTMX / Bootstrap / Jinja2 / CSS Grid & Flexbox</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-category">DATABASE</p>
+          <p class="skill-list">SQLite / Supabase (PostgreSQL) / Google Sheets / JSON</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-category">AI / API</p>
+          <p class="skill-list">OpenRouter / Azure OpenAI / Gemini / 楽天API / LINE API</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-category">TOOLS</p>
+          <p class="skill-list">Git / GitHub / Selenium / Slack / Render / GitHub Actions</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Contactセクション
+  ============================================================ -->
+  <section class="section contact" id="contact">
+    <div class="container" style="text-align: center;">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">お問い合わせ</h2>
+      <p class="section-desc" style="margin: 0 auto 32px;">
+        お仕事のご相談・ご質問など、お気軽にDMください。
+      </p>
+
+      <a href="https://x.com/chtchtrl" target="_blank" rel="noopener noreferrer" class="x-link">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X（Twitter）でメッセージを送る
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       フッター
+  ============================================================ -->
+  <footer class="footer">
+    <p>&copy; 2025 Chiaki's Portfolio. All rights reserved.</p>
+  </footer>
+
+  <!-- ============================================================
+       モーダル（作品詳細ポップアップ）
+       JavaScript で中身を動的に書き換えます
+  ============================================================ -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header" id="modalHeader"></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ===== JavaScriptファイル（作品データ・モーダル・フィルターなど） ===== -->
+  <script src="script.js"></script>
+</body>
+</html>

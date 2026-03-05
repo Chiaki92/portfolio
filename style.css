@@ -1,0 +1,919 @@
+/* ============================================================
+   CSS変数（カラーパレット）
+   サイト全体の配色をここで一元管理しています。
+   変更したい場合はここの値を変えるだけでOK。
+============================================================ */
+:root {
+  /* --- ベースカラー --- */
+  --color-bg:        #FAF8F5;       /* ページ背景（温かみのあるオフホワイト） */
+  --color-bg-dark:   #2D3748;       /* ダークセクション背景 */
+  --color-surface:   #FFFFFF;       /* カードなどの背景 */
+
+  /* --- テキストカラー --- */
+  --color-text:      #333333;       /* 本文テキスト */
+  --color-text-sub:  #777777;       /* 補助テキスト */
+  --color-text-light:#AAAAAA;       /* 薄いテキスト */
+  --color-text-white:#FFFFFF;       /* 白テキスト */
+
+  /* --- アクセントカラー --- */
+  --color-accent:    #7BA88C;       /* メインのグリーン */
+  --color-accent-light: #EDF5F0;   /* 薄いグリーン背景 */
+  --color-warm:      #E8836B;       /* コーラル（温かいアクセント） */
+  --color-border:    #E8E0D8;       /* ボーダー（ナチュラルなベージュ） */
+
+  /* --- フォント --- */
+  --font-main: 'Noto Sans JP', 'Zen Kaku Gothic New', sans-serif;
+
+  /* --- レイアウト --- */
+  --max-width: 1080px;             /* コンテンツの最大幅 */
+  --header-height: 64px;           /* ヘッダーの高さ */
+}
+
+/* ============================================================
+   リセット & ベーススタイル
+============================================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* ナビのアンカーリンクをスムーズにスクロールさせる */
+  scroll-behavior: smooth;
+  /* ヘッダー固定分のオフセット */
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ============================================================
+   共通ユーティリティ
+============================================================ */
+
+/* セクション共通の余白 */
+.section {
+  padding: 80px 24px;
+}
+
+/* コンテンツ幅を制限する共通の内側ラッパー */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* セクション見出しのスタイル */
+.section-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-bg-dark);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.section-desc {
+  font-size: 15px;
+  color: var(--color-text-sub);
+  max-width: 600px;
+  line-height: 1.8;
+}
+
+/* ============================================================
+   ヘッダー（固定ナビゲーション）
+============================================================ */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: rgba(250, 248, 245, 0.92);  /* 背景を半透明にしてすりガラス風に */
+  backdrop-filter: blur(12px);             /* すりガラス効果 */
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 100;                            /* 他の要素より手前に表示 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ロゴ（サイト名） */
+.logo {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-bg-dark);
+  letter-spacing: 1px;
+}
+
+/* ナビゲーションリンク */
+.nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-sub);
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+/* ホバー時に下線が出るアニメーション */
+.nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+.nav a:hover {
+  color: var(--color-accent);
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+/* ハンバーガーメニューボタン（モバイル用、デフォルト非表示） */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-bg-dark);
+  transition: all 0.3s ease;
+}
+
+/* ============================================================
+   ヒーローセクション（最初に目に入るメインビジュアル）
+============================================================ */
+.hero {
+  margin-top: var(--header-height);  /* ヘッダー固定分の余白 */
+  position: relative;
+  height: min(85vh, 640px);          /* 画面の85%か640pxの小さい方 */
+  display: flex;
+  align-items: center;
+  overflow: hidden;                   /* はみ出た画像を隠す */
+}
+
+/* 背景画像（暗くするオーバーレイ付き） */
+.hero-bg {
+  position: absolute;
+  inset: 0;                           /* top/right/bottom/left 全部0 */
+  background:
+    linear-gradient(rgba(45, 55, 72, 0.45), rgba(45, 55, 72, 0.45)),
+    url('images/hero.jpg') center/cover;
+  /* ↑ 暗いオーバーレイ + 背景画像 */
+}
+
+.hero-content {
+  position: relative;                /* 背景画像より手前に表示 */
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 32px;
+  /* 表示時のフェードインアニメーション */
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero-label {
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.hero-title {
+  font-size: clamp(28px, 5vw, 44px); /* 画面幅に応じてサイズ可変 */
+  font-weight: 700;
+  color: var(--color-text-white);
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.hero-subtitle {
+  font-size: 15px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+  max-width: 520px;
+}
+
+/* ============================================================
+   Aboutセクション
+============================================================ */
+.about {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.about-text p {
+  font-size: 15px;
+  line-height: 2;
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+/* SUNABACOの学習歴タイムライン */
+.timeline {
+  margin-top: 32px;
+  padding-left: 20px;
+  border-left: 3px solid var(--color-accent);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 24px 20px;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+/* タイムラインの丸いドット */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -11.5px;          /* ボーダーの上にドットを重ねる */
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* 「受講中」「予定」のバッジスタイル */
+.timeline-item.current::before {
+  background: var(--color-warm);
+  /* 受講中はアニメーションで点滅させる */
+  animation: pulse 2s ease infinite;
+}
+
+.timeline-item.planned::before {
+  background: var(--color-border);
+}
+
+.timeline-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 1px;
+}
+
+.timeline-item.current .timeline-label {
+  color: var(--color-warm);
+}
+
+.timeline-item.planned .timeline-label {
+  color: var(--color-text-light);
+}
+
+.timeline-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-bg-dark);
+  margin-top: 2px;
+}
+
+/* ============================================================
+   Worksセクション（カード一覧）
+============================================================ */
+.works {
+  background: var(--color-bg);
+}
+
+.works-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+/* フィルターボタン */
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-family: var(--font-main);
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-sub);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* 選択中のフィルターボタン */
+.filter-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+}
+
+/* カードを並べるグリッド */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* 各カード */
+.work-card {
+  background: var(--color-surface);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 初期状態（アニメーション前）：透明で少し下にずらす */
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* カードが表示されたときのスタイル */
+.work-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.work-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+}
+
+/* カードのサムネイル部分 */
+.card-thumbnail {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* スクリーンショット画像 */
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* ホバー時に画像を少しズーム */
+.work-card:hover .card-img {
+  transform: scale(1.05);
+}
+
+.card-emoji {
+  font-size: 52px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* カード左上の番号バッジ */
+.card-number {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.9);
+  letter-spacing: 1px;
+  text-shadow: none !important;
+}
+
+/* カード右上のカテゴリバッジ */
+.card-category {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.card-category.personal {
+  background: #EDF5F0;
+  color: #4A7C5C;
+}
+
+.card-category.course {
+  background: #FFF3E8;
+  color: #8B6914;
+}
+
+/* カードのテキスト部分 */
+.card-body {
+  padding: 18px 22px 22px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-bg-dark);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.card-tagline {
+  font-size: 12px;
+  color: var(--color-text-sub);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+/* 技術タグ一覧 */
+.card-tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.card-tag {
+  font-size: 10px;
+  padding: 3px 9px;
+  background: #F5F3F0;
+  color: var(--color-text-sub);
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.card-tag-more {
+  font-size: 10px;
+  padding: 3px 9px;
+  background: #F5F3F0;
+  color: var(--color-text-light);
+  border-radius: 8px;
+}
+
+/* カード内のURLリンクボタン */
+.card-url-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.card-url-btn:hover {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* ============================================================
+   モーダル（作品詳細ポップアップ）
+============================================================ */
+
+/* 背景のオーバーレイ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* デフォルトは非表示 */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+}
+
+/* モーダルが開いたとき */
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* モーダル本体 */
+.modal {
+  background: var(--color-surface);
+  border-radius: 20px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;           /* 内容が長いときスクロール */
+  box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0) scale(1);
+}
+
+/* モーダルスクロールバーのスタイル */
+.modal::-webkit-scrollbar {
+  width: 6px;
+}
+.modal::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+/* モーダルヘッダー */
+.modal-header {
+  padding: 28px 32px 20px;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #f5f3f0;
+  cursor: pointer;
+  font-size: 18px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.modal-close:hover {
+  background: #eee;
+}
+
+.modal-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.modal-emoji {
+  font-size: 32px;
+}
+
+.modal-number {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.modal-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-bg-dark);
+  line-height: 1.3;
+}
+
+.modal-tagline {
+  font-size: 14px;
+  color: var(--color-text-sub);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* モーダル本文 */
+.modal-body {
+  padding: 20px 32px 32px;
+}
+
+.modal-section {
+  margin-bottom: 24px;
+}
+
+.modal-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.modal-desc {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.8;
+}
+
+/* モーダル内の機能リスト */
+.modal-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-features li {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.modal-features li::before {
+  content: '•';
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* モーダル内の技術タグ */
+.modal-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.modal-tag {
+  font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 12px;
+  font-weight: 500;
+  color: #555;
+}
+
+/* モーダル内のURLリンク */
+.modal-url {
+  padding: 14px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modal-url-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+}
+
+.modal-url-link {
+  font-size: 12px;
+  word-break: break-all;
+  transition: opacity 0.2s;
+}
+
+.modal-url-link:hover {
+  opacity: 0.7;
+}
+
+/* ============================================================
+   Skillsセクション
+============================================================ */
+.skills {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+
+/* スキルカード */
+.skill-card {
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.skill-category {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+
+.skill-list {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.8;
+}
+
+/* ============================================================
+   Contactセクション
+============================================================ */
+.contact {
+  background: var(--color-bg);
+}
+
+/* Xリンクボタン */
+.x-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--color-bg-dark);
+  color: var(--color-text-white);
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.x-link:hover {
+  background: #1a202c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(45, 55, 72, 0.3);
+}
+
+/* ============================================================
+   フッター
+============================================================ */
+.footer {
+  text-align: center;
+  padding: 32px 24px;
+  border-top: 1px solid var(--color-border);
+  font-size: 12px;
+  color: var(--color-text-light);
+}
+
+/* ============================================================
+   アニメーション定義
+============================================================ */
+
+/* ヒーローのフェードイン */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* タイムラインの点滅（受講中） */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ============================================================
+   レスポンシブ対応（スマートフォン）
+============================================================ */
+@media (max-width: 768px) {
+  /* --- ナビをハンバーガーメニューに切替 --- */
+  .hamburger {
+    display: flex;           /* ハンバーガーアイコンを表示 */
+  }
+
+  .nav {
+    /* モバイルではドロワーメニューとして全画面表示 */
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(250, 248, 245, 0.98);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    /* デフォルトは非表示（左にずらして隠す） */
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  /* メニューが開いたとき */
+  .nav.open {
+    transform: translateX(0);
+  }
+
+  .nav a {
+    font-size: 18px;
+  }
+
+  /* --- セクションの余白を縮小 --- */
+  .section {
+    padding: 56px 20px;
+  }
+
+  .section-title {
+    font-size: 22px;
+  }
+
+  /* --- ヒーローを小さく --- */
+  .hero {
+    height: auto;
+    min-height: 400px;
+  }
+
+  .hero-content {
+    padding: 48px 24px;
+  }
+
+  /* --- Worksグリッドを1列に --- */
+  .works-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* --- モーダルの余白を縮小 --- */
+  .modal-header,
+  .modal-body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .modal-name {
+    font-size: 18px;
+  }
+
+  /* --- スキルグリッドを1列に --- */
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
