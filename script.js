@@ -400,6 +400,22 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* ==========================================================
+   上に戻るボタン
+========================================================== */
+window.addEventListener("scroll", () => {
+  const btn = document.getElementById("scrollTopBtn");
+  if (window.scrollY > 300) {
+    btn.classList.add("visible");
+  } else {
+    btn.classList.remove("visible");
+  }
+});
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ==========================================================
    初期表示
 ========================================================== */
 renderCards("all");
