@@ -229,7 +229,7 @@ function renderCards(filterValue) {
     card.innerHTML = `
       <div class="card-thumbnail" ${thumbnailStyle}>
         ${thumbnailContent}
-        <span class="card-number" style="color: ${work.image ? '#fff' : work.color}; ${work.image ? 'text-shadow: 0 1px 3px rgba(0,0,0,0.5);' : ''}">${work.number}</span>
+        <span class="card-number" style="color: ${work.color};">${work.number}</span>
         <span class="card-category ${catClass}">${catLabel}</span>
       </div>
       <div class="card-body">
